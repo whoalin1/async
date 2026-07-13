@@ -291,7 +291,7 @@ async.each(openFiles, function(file, callback) {
       // All processing will now stop.
       console.log('A file failed to process');
     } else {
-      console.log('All files have been processed successfully');
+      console.log('All files have been processed successfuly');
     }
 });
 ```
@@ -773,7 +773,7 @@ __Arguments__
   a `callback(err, result)` which it must call on completion with an error `err`
   (which can be `null`) and an optional `result` value.
 * `callback(err, results)` - An optional callback to run once all the functions
-  have completed successfully. This function gets a results array (or object) containing all
+  have completed successfuly. This function gets a results array (or object) containing all
   the result arguments passed to the task callbacks.
 
 __Example__
