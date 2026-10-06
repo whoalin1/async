@@ -21,6 +21,37 @@ Async is also installable via:
 
 Async provides around 20 functions that include the usual 'functional'
 suspects (`map`, `reduce`, `filter`, `each`…) as well as some common patterns
+
+---------------------------------------
+
+<a name="someLimit" />
+### someLimit(arr, limit, iterator, [callback])
+
+Returns `true` if at least one element in the `arr` satisfies an async test, but no more than `limit` iterator functions run at a time.
+
+This is the bounded version of `some`. The `iterator` callback is the same truth-test as `some`: it accepts a single `true` or `false` and does not take an error as its first argument. Once an iterator returns `true`, the main `callback` is called immediately with `true`. If the array is exhausted with no `true` result, `callback` receives `false`.
+
+**Note: the callbacks do not take an error as their first argument.**
+
+__Arguments__
+
+* `arr` - An array to iterate over.
+* `limit` - The maximum number of iterator functions to run at once. Must be a number greater than 0.
+* `iterator(item, callback)` - A truth test to apply to each item in the array. The iterator is passed a `callback(truthValue)` which must be called with a boolean argument once it has completed.
+* `callback(result)` - *Optional* A callback which is called as soon as any iterator returns `true`, or after all the iterator functions have finished.
+
+__Example__
+
+```js
+async.someLimit(['file1','file2','file3'], 2, function(file, callback){
+  fs.exists(file, function(err, exists){
+    callback(err ? false : exists);
+  });
+}, function(result){
+  // if result is true then at least one of the first two files exists
+});
+```
+
 for asynchronous control flow (`parallel`, `series`, `waterfall`…). All these
 functions assume you follow the Node.js convention of providing a single
 callback as the last argument of your `async` function.
